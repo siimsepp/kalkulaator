@@ -1,0 +1,61 @@
+Autorid: Siim Sepp, Martin Kisand
+
+Kirjeldus:
+
+Kalkulaatori eesmärk on pakkuda täiendavaid funktsionaalsusi, mida tavalistel kalkulaatoritel ei ole. Näiteks saab sellega arvutada kombinatsioonide arvu, kasutada Poissoni piirteoreemi või Bernoulli valemit, mis tulevad kasuks matemaatiliste ainete kodutööde lahendamisel ja kontrollimisel. Uute funktsionaalsuste lisamine programmi on lihtne, mis teeb sellest pikemaajalise projekti, kuhu saab funktsioone lisada vastavalt vajaduse tekkimisele. See kalkulaator pole mõeldud olema vaid mänguasi, vaid on juba osutunud reaalselt kasulikuks.
+
+käivitamine:
+
+IntelliJ arenduskeskkonnas kasutada programmi jooksutamiseks Gradle'it: paremast servast valida Gradle → kalkulaator → Tasks → application → run
+Käsureal käivitamiseks juurkaustas olles: ./gradlew run või ./run
+
+Kasutamine:
+
+Algarv:
+Sisestada tekstiväljale arv ja vajutada nupule 'Algarv'. Programm tagastab teate, kas tegemist on algarvuga või mitte.
+
+Nädalapäev:
+Sisestada tekstiväljale kuupäev kujul DD.MM.YYYY Programm väljastab, mis nädalapäevaga on tegemist. Nii saab näiteks kontrollida, mis nädalapäeval programmi kasutaja on sündinud.
+
+Arvutamine:
+Programm teostab ka arvutusi. Näiteks sisend (1+2)*4 annab vastuseks 12. Tulemuse kuvamiseks vajutada nuppu 'Arvuta'.
+
+Astendamine:
+Pole osa eelnevast valemist, aga eraldiseisvana saab teostada ka astendamist sarnaselt Pythoni käsureale: 2**10 annab vastuseks 1024.0
+
+Puhasta:
+Nupp 'Puhasta' kustutab nii kasutaja sisendi kui ka väljundi.
+
+Osade funktsioonide kasutamiseks peab nende olemasolu teadma. Nende kasutamine on sarnane MS Exceli funktsioonide kasutamisele. Näiteks Poissoni piirteoreemi kasutamiseks sisestada poisson(3,0) Sel juhul on 3 keskväärtus ja 0 otsitav ehk traditsioonilise Poissoni piirteoreemi selgitava näite kohaselt saab nii välja arvutada kui suur on tõenäosus, et rosinakukli sees pole ühtegi rosinat kui keskmiselt peaks neid kuklisuuruses tainatükis olema 3.
+
+Sarnaselt Poissonile saab kasutada ka funktsioone binoom ja kombin. Esimene realiseerib Bernoulli valemi, mis võimaldab arvutada, et kui korvpallur tabab vabaviskeid tõenäosusega 0.75, siis kui suur on tõenäosus, et kümnest viskest tabab täpselt 9. Selle arvutamiseks: binoom(10, 0.75, 9) Vastus on umbes 19%. kombin(10,5) arvutab kombinatsioonide arvu n arvust k kaupa.
+
+Klasside kirjeldus:
+
+Main:
+Sisaldab main meetodit. Standardne JavaFX main klass main ja start meetoditega. Start meetod laadib gui.fxml faili, mis asub kaustas resources → kalkulaator.
+
+gui.fxml
+Graafiline kasutajaliides. 
+
+Controller:
+Suhtleb kasutajaliidesega. Seal on meetodid, mis käivitatakse, kui kasutaja vajutab nuppe või sisestab teksti ja vajutab nuppu 'Arvuta'. Vastavalt tekstile otsustatakse, mida sisestatuga tehakse. Näiteks kui sisestatu algab arvu, miinuse või sulgudega või kui ta sisaldab **, siis käsitletakse teda kui otse arvutatavat valemit ja selle arvutuse teostab Modeli klassi meetod evalFormula. Kui aga sisestatu neile tingimustele ei vasta, siis on tegemist funktsiooni sisendiga (või vigase sisendiga), millega tegeleb Modeli meetod evalString. 
+
+Kui kasutaja vajutab nuppu 'Algarv', siis meetod processPrime võtab tekstiväljale sisestatu ja kutsub välja klassis Valemid oleva meetodi kasAlgarv, mis tagastab tõeväärtuse vastavvalt sellele, kas sisestatu on algarv või mitte. Sarnaselt töötab ka meetod processWeekday, mis kutsub välja klassi Valemid meetodi nädalapäev. 
+
+Model:
+Saab andmed Controllerilt ja töötleb neid edasi. Meetod evalFormula teostab arvutuse, kui Controlleri meetod processUserInput otsustas, et tegemist on otse arvutatava valemiga. evalFormula kasutab javascripti eval funktsiooni, sest Javas vastavat võimalust ei ole. evalString kutsub välja meetodeid klassist Valemid vastavalt sellele, millega sisestatu algab. Selleks, et vastavaid meetodeid kasutada peab sisend algama sõnadega 'poisson', 'binoom' jne. Meetod evalString kasutab meetodit evalRegex, et kätte saada sulgude sisu. See tähendab, et kui kasutaja sisestas poisson(5,2), siis tagastatakse edasiseks töötlemiseks sõnena 5,2
+
+Valemid:
+Selles klassis on meetodid, mis teostavad arvutusi. Klassi meetodeid kutsutakse välja klassidest Model ja Controller. Näiteks meetod nädalapäev tagastab sõne kujul eestikeelse nädalapäeva.
+
+Projekt on valminud mitmes osas. Suurem osa sellest valmis juba enne OOPi aine algust. Ajakulu hinnata on keeruline. Projekti ehitamine toimus käsikäes Java, JavaFXi ja Gradle'i tundmaõppimisega. Seetõttu on raske öelda, mis osa kulutatud ajast on läinud otseselt selle projekti teostamiseks, kuid hinnanguliselt 40 tundi tööd on sellele projektile kulunud. Nüüd, kus oskused sarnase projekti realiseerimiseks on olemas, oleks ajakulu tõenäoliselt umbes suurusjärk väiksem.
+
+Probleeme ja kohati päris frustreerivaid valmistas asjaolu, et mingil põhjusel pole JavaFX enam osa JDKst. Seetõttu valmistas graafilise kasutajaliidese tegemine suuremaid raskusi, kui see normaalsel juhul olema peaks. Gradle'i kasutamise õppimine siiski päästis olukorra. Samas pole siiani selge, kuidas teha sellest projektist töötavat jar faili. Projekt töötab ainult läbi Gradle'i vahenduse.
+
+Rahul võib olla sellega, et programmi põhifunktsionaalsused töötavad nii nagu plaanitud. Puudulik on programmi disain. Graafiline kasutajaliides ei näe välja viimistletud, aga see on osalt paratamatu, sest tegemist on töös oleva projektiga, kuhu peab olema võimalik kerge vaevaga uusi nuppe lisada ja teiseks pole see kalkulaator mõeldud kellegile teisele kasutamiseks peale autori endi.
+
+Programmi testimine toimus manuaalselt, kontrollides, et kasutaja sisestatut interpreteeritakse ootuspäraselt ja arvutuste tulemused on korrektsed. Automaatteste ei ole.
+
+Git:
+Projekti Githubi repo aadress: https://github.com/siimsepp/kalkulaator

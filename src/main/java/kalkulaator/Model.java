@@ -44,7 +44,13 @@ public class Model {
             return valemid.kombinatsioon(sulgudeSisu);
         } else if (sisendTekst.toLowerCase().startsWith("binoom")) {
             return valemid.binoom(sulgudeSisu);
-        } else {
+        } else if (sisendTekst.toLowerCase().startsWith("geom")) {
+            return valemid.geom(sulgudeSisu);
+        } else if (sisendTekst.toLowerCase().startsWith("random")) {
+            return valemid.random(sulgudeSisu);
+        } else if (sisendTekst.toLowerCase().startsWith("bernoull")) {
+            return valemid.bernoull(sulgudeSisu);
+        }else {
             return "Vigane sisend";
         }
     }

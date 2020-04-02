@@ -75,8 +75,55 @@ public class Valemid {
             return "Vigane valem";
         }
     }
-    
-    
+    public String geom(String sulgudeSisu) {
+//          Tagastab geomeetrilise jaotuse tõneäosuse sisestatud katsete arvul, keskväärtuse, dispersiooni ja standardhälbe.
+//          Kasutamine: geom(otsitav katsete arv k: P{X = k}, toimumise tõenäosus ühel katsel)
+        try {
+            String[] arvud = sulgudeSisu.split(",\\s*"); // koma ja arvu vahel võib olla 0 või rohkem tühikut
+            int katseteArv = Integer.parseInt(arvud[0]);
+            double tõenäosus = Double.parseDouble(arvud[1]);
+            double keskväärtus = 1 / tõenäosus;
+            double otsitav = Math.pow(1 - tõenäosus, katseteArv - 1) * tõenäosus;
+            double dispersioon = (1-tõenäosus) / Math.pow(tõenäosus, 2);
+            double standardhälve = Math.sqrt(dispersioon);
+            return "P (X=" + katseteArv + ") = " + Math.round(otsitav * 1000.0) / 1000.0 + ", EX = " +
+                    Math.round(keskväärtus * 1000.0) / 1000.0 + ", DX = " + Math.round(dispersioon * 1000.0) / 1000.0 +
+                    ", SD = " + Math.round(standardhälve * 1000.0) / 1000.0;
+        }
+        catch (Exception e) {
+            return "Vigane valem";
+        }
+    }
+
+    public String random(String sulgudeSisu) {
+//        Leiab juhusliku täisarvu. Arv jääb parameetreite (kaasaarvatud) vahele. Kasutamine: random(vähim arv, suurim arv)
+        try {
+            String[] arvud = sulgudeSisu.split(",\\s*"); // koma ja arvu vahel võib olla 0 või rohkem tühikut
+            int vähim = Integer.parseInt(arvud[0]);
+            int suurim = Integer.parseInt(arvud[1]);
+            int arv = vähim + (int) (Math.random() * ((suurim - vähim) + 1));
+            return Integer.toString(arv);
+        } catch (Exception e) {
+            return "Vigane valem";
+        }
+    }
+
+    public String bernoull(String sulgudeSisu) {
+//        Leiab bernoulli jaotuse keskväärtuse, dispersiooni, standardhälbe. Kasutamine bernoull(tõenäosus)
+        try {
+            double tõenäosus = Double.parseDouble(sulgudeSisu);
+            double dispersioon = tõenäosus * (1 - tõenäosus);
+            double standardhälve = Math.sqrt(dispersioon);
+            return "EX = " + Math.round(tõenäosus * 1000.0) / 1000.0 +
+                    ", DX = " + Math.round(dispersioon * 1000.0) / 1000.0 +
+                    ", SD = " + Math.round(standardhälve * 1000.0) / 1000.0;
+        } catch (Exception e) {
+            return "Vigane valem";
+        }
+    }
+
+
+
     // Loeb sisse kuupäeva kujul dd.mm.yyyy ja tagastab eestikeelse nädalapäeva.
     public String nädalapäev(String kuupäev) {
         Map<String, String> nädalapäevad = new HashMap<>();

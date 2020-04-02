@@ -28,7 +28,7 @@ Nupp 'Puhasta' kustutab nii kasutaja sisendi kui ka väljundi.
 
 Osade funktsioonide kasutamiseks peab nende olemasolu teadma. Nende kasutamine on sarnane MS Exceli funktsioonide kasutamisele. Näiteks Poissoni piirteoreemi kasutamiseks sisestada poisson(3,0) Sel juhul on 3 keskväärtus ja 0 otsitav ehk traditsioonilise Poissoni piirteoreemi selgitava näite kohaselt saab nii välja arvutada kui suur on tõenäosus, et rosinakukli sees pole ühtegi rosinat kui keskmiselt peaks neid kuklisuuruses tainatükis olema 3.
 
-Sarnaselt Poissonile saab kasutada ka funktsioone binoom ja kombin. Esimene realiseerib Bernoulli valemi, mis võimaldab arvutada, et kui korvpallur tabab vabaviskeid tõenäosusega 0.75, siis kui suur on tõenäosus, et kümnest viskest tabab täpselt 9. Selle arvutamiseks: binoom(10, 0.75, 9) Vastus on umbes 19%. kombin(10,5) arvutab kombinatsioonide arvu n arvust k kaupa.
+Sarnaselt Poissonile saab kasutada ka funktsioone binoom ja kombin. Esimene realiseerib Bernoulli valemi, mis võimaldab arvutada, et kui korvpallur tabab vabaviskeid tõenäosusega 0.75, siis kui suur on tõenäosus, et kümnest viskest tabab täpselt 9. Selle arvutamiseks: binoom(10, 0.75, 9) Vastus on umbes 19%. kombin(10,5) arvutab kombinatsioonide arvu n arvust k kaupa. Veel on olemas funktsioonid geom geomeetrilise jaotuse leidmiseks, random etteantud vahemikus täisarvu leidmiseks ja bernoull brnoulli jaotuse leidmiseks. Nende kasutamine: geom(otsitav katsete arv k: P{X = k}, sündmuse toimumise tõenäosus ühel katsel), random(vähim arv kaasaarvatult, suurim arv kaasaarvatult), bernoull(vaadeldava sündmuse tõenäosus).
 
 Klasside kirjeldus:
 
